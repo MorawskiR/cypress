@@ -30,13 +30,25 @@ before("Open home page", () => {
 
     it.only("dokladniejjsze lokalizowanie elementow na stronie", () => {
         cy.contains("span", "Shop Now");
- cy.visit("/contact");
+        cy.visit("/contact");
         cy.contains(`div[data-id="3f3d1eda"]`,"Zaznacz opcję").find;
         //
         
     })
 
-    it.only("klikniecie w dany element na stronie", () => {
+    it("klikniecie w dany element na stronie", () => {
+
+        cy.visit("/contact");
+        cy.get("#wpforms-submit-10").click();
+
+        cy.contains("a.menu-link","About").click({force:true});
     })
 
+    it.only("Wpisywanie wartosci w pole tekstowe", () => {
+        cy.visit("/contact");
+        cy.get("#wpforms-10-field_0").type("Jan Kowalski", {delay:800});
+        cy.get("#wpforms-10-field_3").type("454544545");
+        
+        cy.get("#wpforms-10-field_1").type("example@gmail.com{enter}");
+    })
 })
