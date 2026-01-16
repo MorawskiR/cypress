@@ -1,14 +1,13 @@
 /// <reference types="cypress" />
 
-before("open home page ", () => {
-    cy.visit("")
-})
-describe("koszyk", () => {
-    it("dodawanie do koszyka", () => {
-    })
+describe("first test", () => {
 
-    it("proces niepoprawnego zakupu na stronie", () =>{
-
+    it("rodzaje lokalizatorow", () => {
+        cy.visit("/contact");
     })
+ // lokalizator po tagu
+
+    cy.get("h2");
+ 
 
 })
