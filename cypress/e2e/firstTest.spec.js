@@ -44,11 +44,33 @@ before("Open home page", () => {
         cy.contains("a.menu-link","About").click({force:true});
     })
 
-    it.only("Wpisywanie wartosci w pole tekstowe", () => {
+    it("Wpisywanie wartosci w pole tekstowe", () => {
         cy.visit("/contact");
-        cy.get("#wpforms-10-field_0").type("Jan Kowalski", {delay:800});
+        cy.get("#wpforms-10-field_0").type("Jan Kowalski", {delay:100});
         cy.get("#wpforms-10-field_3").type("454544545");
         
         cy.get("#wpforms-10-field_1").type("example@gmail.com{enter}");
+        //czywszczenie pola
+        cy.get("#wpforms-10-field_0").clear();
+})
+        it.only("przechowywanie elemntow", () => {
+            cy.visit("/contact");
+            const inputName = cy.get("#wpforms-10-field_0");
+          //  inputName.type("Jan Kowalski");
+
+          //then()
+            cy.get("#wpforms-10-field_0").then( (inputName) => {
+            const placeholder = inputName.attr("placeholder");
+            cy.log(placeholder);
+            //asercja w srodku then
+            expect(placeholder).to.equal("Full name");
+
+
+         })
+
+         //drugi alias
+         cy.get("#wpforms-10-field_0").as("nameInput");
+         cy.get("@nameInput").should("have.attr", "placeholder", "Full name");
     })
+
 })
