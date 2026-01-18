@@ -28,7 +28,7 @@ before("Open home page", () => {
     })
 
 
-    it.only("dokladniejjsze lokalizowanie elementow na stronie", () => {
+    it("dokladniejjsze lokalizowanie elementow na stronie", () => {
         cy.contains("span", "Shop Now");
         cy.visit("/contact");
         cy.contains(`div[data-id="3f3d1eda"]`,"Zaznacz opcję").find;
@@ -53,7 +53,7 @@ before("Open home page", () => {
         //czywszczenie pola
         cy.get("#wpforms-10-field_0").clear();
 })
-        it.only("przechowywanie elemntow", () => {
+        it("przechowywanie elemntow", () => {
             cy.visit("/contact");
             const inputName = cy.get("#wpforms-10-field_0");
           //  inputName.type("Jan Kowalski");
@@ -73,4 +73,28 @@ before("Open home page", () => {
          cy.get("@nameInput").should("have.attr", "placeholder", "Full name");
     })
 
+   it.only("pobieranie tekstu z elementow", () => {
+    cy.visit("/about");
+
+
+    //przez metode invoke
+    cy.get("h1.elementor-heading-title").invoke("text").then((text) =>{
+        cy.log(text);
+        expect(text).to.contain("WHO ARE WE?");
+    })
+
+    //pobioeranie tekstu bez invoku ale z then 
+
+    cy.get("h1.elementor-heading-title").then(($element) => {
+        const text = $element.text();
+        cy.log(text);
+        expect(text).to.contain("WHO ARE WE?"); 
+   }); 
+
+// tekst do aliasu
+    cy.get("h1.elementor-heading-title").invoke("text").as("title");
+    cy.get("@title").then((text) => {
+        expect(text).to.contain("WHO ARE WE?");
+    })
+    })
 })
