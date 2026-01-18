@@ -73,7 +73,7 @@ before("Open home page", () => {
          cy.get("@nameInput").should("have.attr", "placeholder", "Full name");
     })
 
-   it.only("pobieranie tekstu z elementow", () => {
+   it("pobieranie tekstu z elementow", () => {
     cy.visit("/about");
 
 
@@ -96,5 +96,20 @@ before("Open home page", () => {
     cy.get("@title").then((text) => {
         expect(text).to.contain("WHO ARE WE?");
     })
+    })
+
+// checkboxy
+    it.only("Obsluga check box i pol oopcji", () =>{
+            cy.visit("/contact");
+        cy.get("#wpforms-10-field_5_2").check();
+        cy.get("#wpforms-10-field_5_2").should("be.checked");   
+
+        cy.get("#wpforms-10-field_5_1").uncheck().should("not.be.checked");
+
+
+        //radio buttony
+
+        cy.get("#wpforms-10-field_6_3").check();
+        cy.get("#wpforms-10-field_6_3").should("be.checked");   
     })
 })
