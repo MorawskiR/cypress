@@ -99,7 +99,7 @@ before("Open home page", () => {
     })
 
 // checkboxy
-    it.only("Obsluga check box i pol oopcji", () =>{
+    it("Obsluga check box i pol oopcji", () =>{
             cy.visit("/contact");
         cy.get("#wpforms-10-field_5_2").check();
         cy.get("#wpforms-10-field_5_2").should("be.checked");   
@@ -112,4 +112,14 @@ before("Open home page", () => {
         cy.get("#wpforms-10-field_6_3").check();
         cy.get("#wpforms-10-field_6_3").should("be.checked");   
     })
+
+    it.only("ustawianie daty w datapicker", () => {
+        //cy.visit("");   
+
+        cy.get("#date").as("datepicker").scrollIntoView({duration:1000});
+        cy.get("#date").type("2024-12-31");
+        cy.get("@datepicker").should("have.value", "2024-12-31");
+        
+    })
+
 })
