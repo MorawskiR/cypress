@@ -113,13 +113,23 @@ before("Open home page", () => {
         cy.get("#wpforms-10-field_6_3").should("be.checked");   
     })
 
-    it.only("ustawianie daty w datapicker", () => {
+    it("ustawianie daty w datapicker", () => {
         //cy.visit("");   
 
         cy.get("#date").as("datepicker").scrollIntoView({duration:1000});
         cy.get("#date").type("2024-12-31");
         cy.get("@datepicker").should("have.value", "2024-12-31");
         
+    })
+
+
+    it.only("praca z select i najechanie elementow", () => { 
+        cy.visit("/contact");
+        cy.get("#wpforms-10-field_4").as("select").select("Polska");
+        cy.get("@select").select("Irlandia").should("have.value", "Irlandia");
+
+        cy.get("#menu-item-1341 > a").trigger("mouseover");
+        cy.get("#menu-item-1341 > a").click({force:true});
     })
 
 })
