@@ -123,7 +123,7 @@ before("Open home page", () => {
     })
 
 
-    it.only("praca z select i najechanie elementow", () => { 
+    it("praca z select i najechanie elementow", () => { 
         cy.visit("/contact");
         cy.get("#wpforms-10-field_4").as("select").select("Polska");
         cy.get("@select").select("Irlandia").should("have.value", "Irlandia");
@@ -131,5 +131,25 @@ before("Open home page", () => {
         cy.get("#menu-item-1341 > a").trigger("mouseover");
         cy.get("#menu-item-1341 > a").click({force:true});
     })
+        
 
+    it("obsluga alerow", () => {
+        cy.visit("/about");
+        cy.contains("span","PURCHASE A POSTCARD").click();
+        cy.on("window: confirm",  (text) =>{
+            expect(text).to.equal("Przycisk został kliknięty!")
+            return true;
+        })
+    })
+
+    it("wgrywanie pliku", () => {
+        cy.visit("/contact");
+        cy.get("#upload-file").attachFile("132398239833018778.png")
+
+        //opcjonalne sprawdzenie czy plik zostal wgrany
+        cy.get("#upload-file").then( ($input) => {
+         const files = $input[0].files;
+         expect(files[0].name).to.equal("132398239833018778.png");
+        })
+    })
 })
