@@ -13,6 +13,18 @@
 // Cypress.Commands.add('login', (email, password) => { ... })
 //
 //
+
+Cypress.Commands.add("setMobileViewport", () => {
+    if(device ==="mobile")
+    {
+    cy.viewport("iphone-x");
+    } else if(device ==="tablet"){
+        cy.viewport("ipad-2");
+    } else {
+        cy.viewport(1280, 720);
+    }
+    
+})
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
 //

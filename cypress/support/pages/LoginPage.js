@@ -29,6 +29,10 @@ class LoginPage {
         this.rememberMeCheckbox.check();
     }
 
+    unCheckRememberMe() {
+        this.rememberMeCheckbox.uncheck();
+    }   
+
     clickSubmitBtn() {
         this.getsubmitBtn().click();
     }
