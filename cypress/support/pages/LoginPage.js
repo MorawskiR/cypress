@@ -3,13 +3,13 @@
 class LoginPage {
 
     get usernameField() {
-        return cy("#username")
+        return cy.get("#username")
     }
     get passwordField() {
-        return cy("#password")
+        return cy.get("#password")
     }
     get rememberMeCheckbox() {
-        return cy("#rememberme")
+        return cy.get("#rememberme")
     }
 
     getsubmitBtn() {
