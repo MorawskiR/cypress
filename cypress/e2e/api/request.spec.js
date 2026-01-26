@@ -27,7 +27,20 @@ describe("Połączenie z API cypress", () => {
         cy.request({
             method: "POST",
             url: "https://jsonplaceholder.cypress.io/posts",
-            
+            body: {
+                title: "foo",
+                body: "bar",
+                userId: 2
+            },
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then((response) => {
+            expect (response.status).to.eq(201)
+            expect(response.body).to.have.property("id", 101);
+            expect(response.body).to.have.property("title", "foo");
+            expect(response.body).to.have.property("body", "bar");
+            expect(response.body).to.have.property("userId", 2);
         })
     })
 })  
