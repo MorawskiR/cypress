@@ -4,7 +4,7 @@ import LoginPage from "../support/pages/LoginPage";
 
 describe("login form tests", () => {
     beforeEach("Open home page", () => {
-        cy.setMobileViewport("mobile");
+        cy.setViewport("mobile");
         cy.visit("/my-account");
     })
     it("poprawne logowanie na stronie -  login test", () => {

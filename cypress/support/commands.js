@@ -14,8 +14,8 @@
 //
 //
 
-Cypress.Commands.add("setMobileViewport", () => {
-    if(device ==="mobile")
+Cypress.Commands.add("setViewport", (device) => {
+    if(device === "mobile")
     {
     cy.viewport("iphone-x");
     } else if(device ==="tablet"){
