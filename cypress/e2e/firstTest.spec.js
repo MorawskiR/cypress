@@ -152,4 +152,33 @@ before("Open home page", () => {
          expect(files[0].name).to.equal("132398239833018778.png");
         })
     })
+
+    it.only("asercje", () => {
+        //assercje domyslne - lancuchowe
+        //weryfikuj tekst
+        cy.get("h2.elementor-heading-title").first().should("contain.text", "Multipurpose Store");
+
+
+        //element jest widoczny
+        cy.visit("/about");
+        cy.get("span.elementor-button-text").should("be.visible");
+        cy.visit("/contact");
+        cy.get("#wpforms-10-field_0").type("Jan Kowalski").should("have.value", "Jan Kowalski");
+
+        //czy cos na stronie istnieje 
+        cy.get(".error").should("not.exist");
+
+        //Asercje jawne
+        cy.get("h1.elementor-heading-title").then( ($title) => {
+            expect($title.text()).to.contain("CONTACT US")
+        })
+
+        cy.contains("a", "About").click();
+        cy.url().should("contain", "/about");
+
+        // weryfikacja atrybutow na elementach
+        cy.contains("a", "About").should("have.attr", "href","href=https://test.testowanie-oprogramowania.pl/about/");
+
+
+    })
 })
