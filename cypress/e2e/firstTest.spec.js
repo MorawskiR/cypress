@@ -17,7 +17,7 @@ before("Open home page", () => {
         //lokalizato po klasie
         cy.get(".elementor-icon-box-description");
 
-        //lokalizator po atrybucie S
+        //lokalizator po atrybucie 
         cy.get(`input[name="wpforms[fields][1]"]`);
 
          //lokalizator po atrybutach
@@ -153,7 +153,7 @@ before("Open home page", () => {
         })
     })
 
-    it.only("asercje", () => {
+    it("asercje", () => {
         //assercje domyslne - lancuchowe
         //weryfikuj tekst
         cy.get("h2.elementor-heading-title").first().should("contain.text", "Multipurpose Store");
@@ -181,4 +181,55 @@ before("Open home page", () => {
 
 
     })
-})
+
+    it("zadanie domowe 1", () => {
+        //Przejdź na stronę https://test.testowanie-oprogramowania.pl/shop/
+        cy.visit("/shop");
+
+        // Zweryfikuj czy zostałeś dobrze przekierowany
+        cy.get('.woocommerce-products-header__title.page-title')
+            .should('contain.text', 'Shop')
+        // Kliknij w pierwszy produkt na liście domyslnie klika pierwszy element z kolekcji
+        cy.get('div.astra-shop-thumbnail-wrap').first().click()
+        //Kliknij w przycisk “Add to cart”
+        cy.get('button[name="add-to-cart"]').first().click()
+        //Zweryfikuj czy pojawił się komunikat o tym, że produkt został dodany do koszyka
+        cy.contains("Postcard V1” has been added to your cart.");
+        //   Przejdź na stronę koszyka (Cart)
+        cy.visit("/cart");
+        //Zweryfikuj czy dodany produkt jest widoczny
+        cy.get('td.product-name').should('contain.text', 'Postcard V1');
+        cy.get(".cart-empty woocommerce-info").should("not.exist");
+        // cy.visit("/cart");
+        // cy.contains("Your cart is currently empty");
+        })
+
+ it.only("zadanie domowe 2", () => {
+  cy.visit("/shop");
+
+        //Dodaj dowolny produkt do koszyka
+        cy.get("h2.woocommerce-loop-product__title").eq(1).click();
+        cy.get('button[name="add-to-cart"]').first().click();
+        // Przejdź na stronę koszyka
+        cy.visit("/cart");
+        // Kliknij w przycisk “Proceed to checkout”
+        cy.get(".checkout-button").click();
+
+
+        // Wypełnij wszystkie wymagane pola zakupowe
+        cy.get("#billing_first_name").type("Jan");
+        cy.get("#billing_last_name").type("Kowalski");
+        cy.get("#billing_address_1").type("Ul. Testowa 12");
+        cy.get("#billing_city").type("Turyn");
+        cy.get("#billing_postcode").type("45-675");
+        cy.get("#billing_phone").type("445643333");
+        cy.get("#billing_email").type("test@wp.pl");
+        
+        // Kliknij w przycisk “Place Order”
+        cy.get("#place_order").click();
+
+        // Zweryfikuj czy zamówienie produktu zostało złożone
+        cy.contains("Invalid payment method.");
+    })
+
+    })
